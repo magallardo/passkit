@@ -60,33 +60,40 @@ func copyDir(src string, dst string) (err error) {
 	src = filepath.Clean(src)
 	dst = filepath.Clean(dst)
 
+	fmt.Printf("CopyDir: %s\n", "Point1")
+
 	si, err := os.Stat(src)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("CopyDir: %s\n", "Point2")
 	if !si.IsDir() {
 		return fmt.Errorf("source is not a directory")
 	}
 
+	fmt.Printf("CopyDir: %s\n", "Point3")
 	_, err = os.Stat(dst)
 	if err != nil && !os.IsNotExist(err) {
 		return
 	}
-
+	fmt.Printf("CopyDir: %s\n", "Point4")
 	if err == nil {
 		return fmt.Errorf("destination already exists")
 	}
 
+	fmt.Printf("CopyDir: %s\n", "Point5")
 	err = os.MkdirAll(dst, si.Mode())
 	if err != nil {
 		return
 	}
 
+	fmt.Printf("CopyDir: %s\n", "Point6")
 	entries, err := ioutil.ReadDir(src)
 	if err != nil {
 		return
 	}
 
+	fmt.Printf("CopyDir: %s\n", "Point7")
 	for _, entry := range entries {
 		srcPath := filepath.Join(src, entry.Name())
 		dstPath := filepath.Join(dst, entry.Name())
@@ -109,6 +116,7 @@ func copyDir(src string, dst string) (err error) {
 		}
 	}
 
+	fmt.Printf("CopyDir: %s\n", "Point8")
 	return
 }
 
