@@ -31,6 +31,7 @@ func (f *fileSigner) CreateSignedAndZippedPersonalizedPassArchive(p *Pass, pz *P
 
 	fmt.Printf("Zipping and Signing: %s\n", dir)
 	if err := t.ProvisionPassAtDirectory(dir); err != nil {
+		fmt.Printf("Provision Directory error: %s\n", err)
 		return nil, err
 	}
 

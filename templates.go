@@ -1,6 +1,7 @@
 package passkit
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -48,6 +49,7 @@ func NewFolderPassTemplate(templateDir string) *folderPassTemplate {
 }
 
 func (f *folderPassTemplate) ProvisionPassAtDirectory(tmpDirPath string) error {
+	fmt.Printf("Copying from %s to %s\n", f.templateDir, tmpDirPath)
 	return copyDir(f.templateDir, tmpDirPath)
 }
 
@@ -69,7 +71,7 @@ type inMemoryPassTemplate struct {
 	files map[string][]byte
 }
 
-	func NewInMemoryPassTemplate() *inMemoryPassTemplate {
+func NewInMemoryPassTemplate() *inMemoryPassTemplate {
 	return &inMemoryPassTemplate{files: make(map[string][]byte)}
 }
 
