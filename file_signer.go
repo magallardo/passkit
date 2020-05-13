@@ -23,45 +23,54 @@ func (f *fileSigner) CreateSignedAndZippedPassArchive(p *Pass, t PassTemplate, i
 }
 
 func (f *fileSigner) CreateSignedAndZippedPersonalizedPassArchive(p *Pass, pz *Personalization, t PassTemplate, i *SigningInformation) ([]byte, error) {
+	fmt.Printf("Zipping and Signing: %s\n", "Point1")
 	dir, err := ioutil.TempDir("", "pass")
 	if err != nil {
 		return nil, err
 	}
 
+	fmt.Printf("Zipping and Signing: %s\n", "Point2")
 	if err := t.ProvisionPassAtDirectory(dir); err != nil {
 		return nil, err
 	}
 
+	fmt.Printf("Zipping and Signing: %s\n", "Point3")
 	if err := f.createPassJSONFile(p, dir); err != nil {
 		return nil, err
 	}
 
+	fmt.Printf("Zipping and Signing: %s\n", "Point4")
 	if pz != nil {
 		if err := f.createPersonalizationJSONFile(pz, dir); err != nil {
 			return nil, err
 		}
 	}
 
+	fmt.Printf("Zipping and Signing: %s\n", "Point5")
 	mfst, err := f.createManifestJSONFile(dir)
 	if err != nil {
 		return nil, err
 	}
 
+	fmt.Printf("Zipping and Signing: %s\n", "Point6")
 	signedMfst, err := signManifestFile(mfst, i)
 	if err != nil {
 		return nil, err
 	}
 
+	fmt.Printf("Zipping and Signing: %s\n", "Point7")
 	err = ioutil.WriteFile(signatureFileName, signedMfst, 0644)
 	if err != nil {
 		return nil, err
 	}
 
+	fmt.Printf("Zipping and Signing: %s\n", "Point8")
 	z, err := f.createZipFile(dir)
 	if err != nil {
 		return nil, err
 	}
 
+	fmt.Printf("Zipping and Signing: %s\n", "Point9")
 	//Fail silently
 	_ = os.RemoveAll(dir)
 	return z, nil
