@@ -29,7 +29,7 @@ func (f *fileSigner) CreateSignedAndZippedPersonalizedPassArchive(p *Pass, pz *P
 		return nil, err
 	}
 
-	fmt.Printf("Zipping and Signing: %s\n", "Point2")
+	fmt.Printf("Zipping and Signing: %s\n", dir)
 	if err := t.ProvisionPassAtDirectory(dir); err != nil {
 		return nil, err
 	}
