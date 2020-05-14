@@ -179,7 +179,7 @@ func addFiles(w *zip.Writer, basePath, baseInZip string) error {
 
 	for _, file := range files {
 		if !file.IsDir() {
-			dat, err := ioutil.ReadFile(basePath + file.Name())
+			dat, err := ioutil.ReadFile(basePath + "/" + file.Name())
 			if err != nil {
 				return err
 			}
