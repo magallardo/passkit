@@ -184,7 +184,7 @@ func addFiles(w *zip.Writer, basePath, baseInZip string) error {
 			}
 
 			// Add some files to the archive.
-			f, err := w.Create(baseInZip + file.Name())
+			f, err := w.Create(baseInZip + "/" + file.Name())
 			if err != nil {
 				return err
 			}
