@@ -77,15 +77,15 @@ func copyDir(src string, dst string) (err error) {
 		return
 	}
 	fmt.Printf("CopyDir: %s\n", "Point4")
-	if err == nil {
-		return fmt.Errorf("destination already exists")
-	}
+	// if err == nil {
+	// 	return fmt.Errorf("destination already exists")
+	// }
 
-	fmt.Printf("CopyDir: %s\n", "Point5")
-	err = os.MkdirAll(dst, si.Mode())
-	if err != nil {
-		return
-	}
+	// fmt.Printf("CopyDir: %s\n", "Point5")
+	// err = os.MkdirAll(dst, si.Mode())
+	// if err != nil {
+	// 	return
+	// }
 
 	fmt.Printf("CopyDir: %s\n", "Point6")
 	entries, err := ioutil.ReadDir(src)
