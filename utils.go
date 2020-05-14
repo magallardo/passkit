@@ -56,44 +56,42 @@ func copyFile(src, dst string) (err error) {
 // CopyDir recursively copies a directory tree, attempting to preserve permissions.
 // Source directory must exist, destination directory must *not* exist.
 // Symlinks are ignored and skipped.
+// MAG Note:  This function is receiving the path to temp directory created
+// by the caller of this function. This implementation was always failing
+// as it checks for existing folders.
 func copyDir(src string, dst string) (err error) {
 	src = filepath.Clean(src)
 	dst = filepath.Clean(dst)
-
-	fmt.Printf("CopyDir from: %s to: %s\n", src, dst)
 
 	si, err := os.Stat(src)
 	if err != nil {
 		return err
 	}
-	fmt.Printf("CopyDir: %s\n", "Point2")
+
 	if !si.IsDir() {
 		return fmt.Errorf("source is not a directory")
 	}
 
-	fmt.Printf("CopyDir: %s\n", "Point3")
 	_, err = os.Stat(dst)
 	if err != nil && !os.IsNotExist(err) {
 		return
 	}
-	fmt.Printf("CopyDir: %s\n", "Point4")
+
+	// Commente code that checks for existing folders
 	// if err == nil {
 	// 	return fmt.Errorf("destination already exists")
 	// }
 
-	// fmt.Printf("CopyDir: %s\n", "Point5")
 	// err = os.MkdirAll(dst, si.Mode())
 	// if err != nil {
 	// 	return
 	// }
 
-	fmt.Printf("CopyDir: %s\n", "Point6")
 	entries, err := ioutil.ReadDir(src)
 	if err != nil {
 		return
 	}
 
-	fmt.Printf("CopyDir: %s\n", "Point7")
 	for _, entry := range entries {
 		srcPath := filepath.Join(src, entry.Name())
 		dstPath := filepath.Join(dst, entry.Name())
@@ -116,7 +114,6 @@ func copyDir(src string, dst string) (err error) {
 		}
 	}
 
-	fmt.Printf("CopyDir: %s\n", "Point8")
 	return
 }
 
