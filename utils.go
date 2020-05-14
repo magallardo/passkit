@@ -170,6 +170,7 @@ func loadDir(src string) (files map[string][]byte, err error) {
 }
 
 func addFiles(w *zip.Writer, basePath, baseInZip string) error {
+	fmt.Printf("Adding file from: %s  base: %s\n", basePath, baseInZip)
 	// Open the Directory
 	files, err := ioutil.ReadDir(basePath)
 	if err != nil {
