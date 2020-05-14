@@ -60,7 +60,7 @@ func copyDir(src string, dst string) (err error) {
 	src = filepath.Clean(src)
 	dst = filepath.Clean(dst)
 
-	fmt.Printf("CopyDir: %s\n", "Point1")
+	fmt.Printf("CopyDir from: %s to: $s\n", src, dst)
 
 	si, err := os.Stat(src)
 	if err != nil {
