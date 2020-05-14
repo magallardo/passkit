@@ -49,6 +49,7 @@ func (f *fileSigner) CreateSignedAndZippedPersonalizedPassArchive(p *Pass, pz *P
 	}
 
 	fmt.Printf("Zipping and Signing: %s\n", "Point5")
+	fmt.Printf("Creating manifest json file at: %s\n", dir)
 	mfst, err := f.createManifestJSONFile(dir)
 	if err != nil {
 		return nil, err
@@ -67,8 +68,10 @@ func (f *fileSigner) CreateSignedAndZippedPersonalizedPassArchive(p *Pass, pz *P
 	}
 
 	fmt.Printf("Zipping and Signing: %s\n", "Point8")
+	fmt.Printf("Creating zip at: %s\n", dir)
 	z, err := f.createZipFile(dir)
 	if err != nil {
+		fmt.Printf("Error ziping file: %s\n", err)
 		return nil, err
 	}
 
@@ -142,8 +145,10 @@ func (f *fileSigner) createZipFile(tmpDir string) ([]byte, error) {
 	buf := new(bytes.Buffer)
 	w := zip.NewWriter(buf)
 
+	fmt.Printf("Adding file to zip from: %s\n", tmpDir)
 	err := addFiles(w, tmpDir, "")
 	if err != nil {
+		fmt.Printf("Error adding files: %s\n", err)
 		return nil, err
 	}
 
