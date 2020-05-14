@@ -62,7 +62,8 @@ func (f *fileSigner) CreateSignedAndZippedPersonalizedPassArchive(p *Pass, pz *P
 	}
 
 	fmt.Printf("Zipping and Signing: %s\n", "Point7")
-	err = ioutil.WriteFile(signatureFileName, signedMfst, 0644)
+	fmt.Printf("Writing signature file: %s\n", signatureFileName)
+	err = ioutil.WriteFile(filepath.Join(dir, signatureFileName), signedMfst, 0644)
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +119,8 @@ func (f *fileSigner) createManifestJSONFile(tmpDir string) ([]byte, error) {
 		return nil, err
 	}
 
-	err = ioutil.WriteFile(manifestJsonFileName, bm, 0644)
+	// err = ioutil.WriteFile(manifestJsonFileName, bm, 0644)
+	err = ioutil.WriteFile(filepath.Join(tmpDir, manifestJsonFileName), bm, 0644)
 	if err != nil {
 		return nil, err
 	}
